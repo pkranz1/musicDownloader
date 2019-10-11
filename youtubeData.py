@@ -1,8 +1,9 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from config import Youtube
 import re
 
-youtube = build(serviceName='youtube',version='v3',developerKey=API_KEY,)
+youtube = build(serviceName='youtube',version='v3',developerKey=Youtube.API_KEY,)
 
 def youtubeSearch(artist, track):
   search_response = youtube.search().list(
