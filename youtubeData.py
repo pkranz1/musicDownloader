@@ -1,19 +1,16 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-import json
 import re
 
-api_key = 'AIzaSyD85BGMm0Ri-_3_tsCA9FuWBONFgvw-2Tk'
+youtube = build(serviceName='youtube',version='v3',developerKey=API_KEY,)
 
 def youtubeSearch(artist, track):
-  youtube = build(serviceName='youtube',version='v3',developerKey=api_key,)
   search_response = youtube.search().list(
     q=track + ' by ' + artist,
     part= 'snippet',
-    type='video'
+    type='video',
+    maxResults=3
   ).execute()
-
-  #print(json.dumps(obj=search_response, sort_keys=True, indent=2))
 
   videoIds = []
   misc = []

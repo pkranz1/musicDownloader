@@ -1,13 +1,8 @@
-import os
-import sys
-import json
 import spotipy
-import webbrowser
-from spotipy.oauth2 import SpotifyClientCredentials
-from json.decoder import JSONDecodeError
 import config
-import argparse
+from spotipy.oauth2 import SpotifyClientCredentials
 from youtubeData import youtubeSearch
+from googleapiclient.errors import HttpError
 
 #allows use of the spotify api
 client_credentials_manager = SpotifyClientCredentials(
@@ -21,14 +16,19 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 #returns a list containing the artists name as the first element
 #and the artistID as the second element
 def getArtistInfo():
-  #user inputs artists name
-  artist = 'LANY' #input('Artist: ')
-
-  #artist search to obtain artist id
-  artist = sp.search(q=artist, limit=5, type='artist')
-  artistId = artist['artists']['items'][0]['id']
-  artist = artist['artists']['items'][0]['name']
-
+  while True:
+    try:
+      #user inputs artists name
+      artist = input('Artist: ')
+      
+      #artist search to obtain artist id
+      artist = sp.search(q=artist, limit=5, type='artist')
+      artistId = artist['artists']['items'][0]['id']
+      artist = artist['artists']['items'][0]['name']
+      break
+    except(IndexError):
+      print('\nError: Could not find artist. Please try again\n')
+  
   #returns artist information
   return [artist, artistId]
 
@@ -56,21 +56,20 @@ def getVideoIds(artist):
   #user inputs album of choice
   while True:
     try:
-      album = 'Malibu Nights' #input('Please copy and paste Album title from above: ')
+      album = input('Please copy and paste album title from list above: ')
       tracks = sp.album_tracks(albumDictonary[album])
       break
     except KeyError:
-      album = input('Error: Please copy and paste Album title from above: ')
-      pass
-  
+      print('\nError: copy and paste album title from list above\n')
   count = 0
-
   for track in tracks['items']:
     trackList.append(track['name'])
-    videoIds.append(youtubeSearch(artist[0],trackList[count]))
+    try:
+      videoIds.append(youtubeSearch(artist[0],trackList[count]))
+    except(HttpError):
+      print(HttpError)
     count += 1
-  
-  return videoIds
+  return [videoIds, album]
 
 
 

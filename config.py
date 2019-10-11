@@ -1,14 +1,16 @@
 class Cridentials:
-    CLIENT_ID = '7fdabfc788aa442ebbaf36e48a3bf88f'
-    CLIENT_SECRET = 'e5e47d93b45f4ab0b15b4ccd2fca0c2f'
+    CLIENT_ID = ''
+    CLIENT_SECRET = ''
 
 class Youtube:
     SERVICE_NAME = 'youtube'
-    VERSION = 'v3'\
+    VERSION = 'v3'
+    API_KEY = ''
+    
 
-FILE_PATH = '/home/patrick/Music/youtube/%s/%s'
+FILE_PATH = '/home/patrick/Music/youtube/%s/%s/'
 
-VIDEO_ID = [
+VIDEO_IDS = [
   ['ZpUxgAXCK2E', '21EfHJrGPEY', 'rjZ26t99_bk', 'WUwzJf78-lk', 'ZSTtxgO-rzY'], 
   ['gi5BPYuSLt4', 'ooWby0UN0cQ', 'h8v3Yus-BOI', 'Xfmn8OeTFSY', 'C-UuLd8IDxA'], 
   ['h7GSGvSyAvo', '4HJ8anOzTPo', 'p24OMx_xczA', 's-V3aajmDlI', 'bCVRlgT_L-g'], 
